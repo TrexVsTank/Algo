@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Main {
 
 	// Main
@@ -82,6 +84,10 @@ public class Main {
         System.out.println(pq.poll()); // 10
         System.out.println(pq.poll()); // 20
         System.out.println(pq.poll()); // 30
+        
+        int[] arr = {7, 2, 9, 4, 3, 8};
+        quickSort(arr, 0, arr.length - 1);
+        for (int x : arr) System.out.print(x + " ");  // 2 3 4 7 8 9
     } // Main
 
     // MyStack
@@ -300,5 +306,31 @@ public class Main {
         }
         boolean isEmpty() { return size == 0; }
     } // MyPriorityQueue
+
+    // QuickSort
+    public static void quickSort(int[] arr, int left, int right) {
+        if (left >= right) return;
+
+        int pivot = arr[(left + right) / 2]; // 중앙 피벗
+        int l = left;
+        int r = right;
+
+        while (l <= r) {
+            while (arr[l] < pivot) l++;     // 좌측에서 피벗보다 큰 값 찾기
+            while (arr[r] > pivot) r--;     // 우측에서 피벗보다 작은 값 찾기
+            
+            if (l <= r) {
+                int tmp = arr[l];
+                arr[l] = arr[r];
+                arr[r] = tmp;
+                l++;
+                r--;
+            }
+        }
+//        System.out.println(Arrays.toString(arr) + " | " + pivot + " | " + l + " | " + r);
+
+        quickSort(arr, left, r);  // 왼쪽 구간
+        quickSort(arr, l, right); // 오른쪽 구간
+    } // QuickSort
 
 }
